@@ -1,0 +1,22 @@
+:root{
+
+  --black-color:#05050F;
+  --purple-color:#531D9C;
+  --dark-purple-color:#1F1F4B;
+  --font: Open Sans;
+}
+
+* {
+
+  box-sizing: border-box;
+  
+
+}
+
+body{ 
+  margin:0; 
+  margin:0;
+  max-width: 1920px;
+  margin-inline:auto;
+  background-color: var(--black-color);
+}
