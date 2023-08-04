@@ -10,13 +10,151 @@
 
   box-sizing: border-box;
   
+  
 
 }
 
-body{ 
-  margin:0; 
-  margin:0;
+.app{ 
+
   max-width: 1920px;
   margin-inline:auto;
-  background-color: var(--black-color);
+  height: 100vh;
+  background-image: url("src/assets/glob.webp");
+  background-size: cover;
+  
 }
+
+body{ margin:0 ;padding:0; 
+  background-image:url('https://img.freepik.com/premium-photo/abstract-star-dust-particle-background_110488-460.jpg');
+
+}
+
+
+.countryInfo-landingPage{
+  
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+
+}
+.app h1, .app h2{ 
+
+   color: rgb(231, 231, 237);
+   font-family: var(--font);
+   text-align: center;
+   text-shadow: 2px 4px 5px #0D0603;
+ 
+}
+
+.app h1{
+
+  font-size:48px
+}
+
+.app h2{
+
+  width:750px;
+  height:max-content;
+  /*border:1px solid blue;*/
+  border-right: 5px solid white;
+  white-space: nowrap;
+  overflow:hidden;
+  width:0;
+  animation: slide 30s steps(50, start) infinite;
+  font-size: 36px;
+ 
+  
+} 
+
+@keyframes slide {
+  
+  15%{ width:100%;  }
+  100%{ width: 100%; }
+}
+
+
+
+
+
+
+.search-container {
+  
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  width:300px;
+  margin-inline: auto;
+ 
+}
+
+.search-input {
+  
+  width: 100%;
+  height: 40px;
+  padding: 10px 40px 10px 10px;
+  font-size: 16px;
+  outline:none;
+  border:none;
+  
+}
+
+.search-input:focus{
+
+ border-style: none none none none;
+
+  
+ 
+}
+
+.search-icon {
+
+  width:30px;
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 20px;
+  color: #888;
+  
+}
+
+.searchResults{
+
+  width:100%;
+  max-height: 50vh;
+  background-color:white;
+  margin-inline:auto;
+  display: grid;
+  /*row-gap: 5px;*/
+  padding-inline:5px;
+  font-family: var(--font);
+  font-size: 14px;
+  overflow-y: scroll;
+  
+  
+
+}
+
+.searchResultsTopLine{
+
+  width:100%;
+  height: 1px;
+  background-color: rgba(128,128,128,.5);
+  box-shadow: 0px -1px 20px 1px rgba(128,128,128,0.83);
+  margin-inline:auto;
+  border-radius: 50%;
+  
+}
+
+
+
+.searchResults .country:hover{
+
+  cursor: pointer;
+  background-color: rgba(128,128,128,0.2);
+  border-radius: 2px;
+  
+}
+
+

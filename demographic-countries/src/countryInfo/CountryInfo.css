@@ -5,8 +5,8 @@
     display: grid;
     font-family: var(--font);
     color:white;
-    background-color: var(--black-color);
-    border: 1px solid red
+    
+   
     
 
 }
@@ -28,7 +28,7 @@
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: var(--black-color);
+    background-color: transparent;
 
   }
 
@@ -45,8 +45,9 @@
     background-color: var(--dark-purple-color);
     border-radius: 8px;
     padding:5vw 8vw 0 8vw;
-    background: linear-gradient(0deg, hsla(240, 42%, 21%, 1) 0%, hsla(240, 42%, 21%, 1) 0%, hsla(240, 43%, 36%, 1) 100%);
-    
+    background: linear-gradient(0deg, rgba(13, 30, 55, .8) 0%,
+     rgba(13, 30, 55, .8) 0%, rgba(15, 39, 96, .8) 100%);
+
   }
 
 
@@ -69,17 +70,14 @@
   }
   
 
-  .country-map{
 
-    border: 1px solid red
-  }
   
   h1 {
     font-size: 24px;
     margin-bottom: 10px;
   }
   
-  img {
+  .container-page img {
     max-width: 200px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -93,6 +91,16 @@
   .details p {
     margin: 5px 20px;
   }
+
+  .territories-image p{
+
+    font-size: 1rem;
+    background-color: transparent;
+  }
+
+ 
+
+  .territories-group > p{ padding:0; margin:0; text-align: start;}
   
 @media screen and (min-width:768px) {
 
@@ -147,15 +155,18 @@
 
 .territories-image{ 
 
-    grid-area: 2/2/3/2
+    grid-area: 2/2/3/2;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
 
 }
+
+
 
 .countryName-image{
 
     width:max-content;
     display: flex;
-    border:1px solid red;
     margin-inline: auto;
     align-items: center;
 
@@ -174,3 +185,74 @@
 
 
 }
+
+/* this section is dedicated of styling the background and it componenets*/
+
+
+
+.container-component{
+
+ position: relative;
+
+}
+
+.container-component .container-page{
+
+  position: absolute;
+  z-index: 1
+
+}
+
+.container-component .background {
+
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+.container {
+
+ 
+  width: 500px;
+  width: 45%;
+  height: 200px;
+  height: 90vh;
+  overflow:hidden;
+  border-radius:50%;
+  box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(128, 128, 128, 0.9),
+    0 0 50px rgba(0, 0, 0, 0.4),
+    0 0 70px rgba(0, 0, 0, 0.5),
+    0 0 90px rgba(0, 0, 0, 0.6);
+    
+  
+ 
+  
+
+
+ 
+}
+
+.container-images{
+  width:200%;
+  height:100%;
+  display:flex;
+  animation: spin 100s linear infinite
+}
+
+.container-images img{
+  
+  width:50%;
+  height:100%;
+  
+  
+}
+
+@keyframes spin {
+  
+  100%{ transform:translate(-50%,0)}
+}
+

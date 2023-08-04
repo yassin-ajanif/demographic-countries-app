@@ -23,6 +23,8 @@ const CountryInfo = ({
 
   return (
 
+<div className='container-component'>
+
     <div className='container-page'>
    
    <div className="container-info">
@@ -65,15 +67,38 @@ const CountryInfo = ({
       </div>
 
       <div className="territories-image">
-        <img src='' alt={`Territories Image`} /> 
-        <p><strong>Territories:</strong> {territories.join(', ')}</p>
+        <div className="territories">
+        <strong>Territories:</strong>
+
+        <p> {territories.join(', ')}</p>      
+
+        </div>
+        <div className="map">map</div>
       </div>
 
       </div>
 
       </div>
     
+  </div>
+
+    <div className="background">
+    
+<div class="container">
+<div class="container-images">
+ 
+<img src="https://i0.wp.com/blog.education.nationalgeographic.org/wp-content/uploads/2013/02/nasa-lightsnight-world.jpg?resize=750%2C436&ssl=1" alt=""/>
+<img src="https://i0.wp.com/blog.education.nationalgeographic.org/wp-content/uploads/2013/02/nasa-lightsnight-world.jpg?resize=750%2C436&ssl=1" alt=""/>
+  
+ 
+</div>
+
+</div>
+
     </div>
+
+</div>  
+
   );
 };
 
