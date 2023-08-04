@@ -1,0 +1,258 @@
+
+.container-page{
+
+
+    display: grid;
+    font-family: var(--font);
+    color:white;
+    
+   
+    
+
+}
+
+
+.countryName-image {
+
+    text-align: center;
+    padding-top: 25px;
+   
+}
+
+
+.country-info {
+
+    display:grid;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+
+  }
+
+  .country-map{ background-color: gray;}
+
+
+  .country-info > * {
+
+    border: 1px solid rgba(220, 197, 197, 0.1);
+    border-bottom: none;
+    margin-inline:auto;
+    display: grid;
+    margin-bottom: 20px;
+    background-color: var(--dark-purple-color);
+    border-radius: 8px;
+    padding:5vw 8vw 0 8vw;
+    background: linear-gradient(0deg, rgba(13, 30, 55, .8) 0%,
+     rgba(13, 30, 55, .8) 0%, rgba(15, 39, 96, .8) 100%);
+
+  }
+
+
+  .container-page img , .container-page p{
+
+      display: block;
+      margin-inline: auto;
+      border:none;
+      text-align: center;
+  }
+
+  .container-page p{
+
+    font-size:18px;
+    padding:10px 10px;
+    border-radius: 8px;
+    background-color: var(--purple-color);
+    
+
+  }
+  
+
+
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .container-page img {
+    max-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .details {
+    text-align: start;
+  }
+  
+  .details p {
+    margin: 5px 20px;
+  }
+
+  .territories-image p{
+
+    font-size: 1rem;
+    background-color: transparent;
+  }
+
+ 
+
+  .territories-group > p{ padding:0; margin:0; text-align: start;}
+  
+@media screen and (min-width:768px) {
+
+
+    .country-info { 
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+.languages-images,.territories-image{
+
+    grid-column: 1/3;
+    
+}
+   
+    
+}  
+
+
+@media screen and (min-width:1024px) {
+
+.country-info {
+    
+    grid-template-columns: 1fr 3fr 1fr;
+    column-gap: 20px;
+}
+
+.country-info  > * {
+
+    padding:20px 20px 0 20px;
+    width:auto
+    
+}
+
+.container-page img{
+
+    width:100px
+}
+
+.languages-images,.territories-image{
+
+    grid-column: auto; 
+    
+}
+
+.languages-images{
+
+     grid-area: 1/2/2/2;
+
+    }
+
+
+.territories-image{ 
+
+    grid-area: 2/2/3/2;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+
+}
+
+
+
+.countryName-image{
+
+    width:max-content;
+    display: flex;
+    margin-inline: auto;
+    align-items: center;
+
+}
+
+.countryName-image > *{ margin:0; padding:0}
+
+.capital-image,
+.pouplation-image,
+.phoneCode-image,
+.currency-image {
+
+    width:200px
+    
+}
+
+
+}
+
+/* this section is dedicated of styling the background and it componenets*/
+
+
+
+.container-component{
+
+ position: relative;
+
+}
+
+.container-component .container-page{
+
+  position: absolute;
+  z-index: 1
+
+}
+
+.container-component .background {
+
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+.container {
+
+ 
+  width: 500px;
+  width: 45%;
+  height: 200px;
+  height: 90vh;
+  overflow:hidden;
+  border-radius:50%;
+  box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(128, 128, 128, 0.9),
+    0 0 50px rgba(0, 0, 0, 0.4),
+    0 0 70px rgba(0, 0, 0, 0.5),
+    0 0 90px rgba(0, 0, 0, 0.6);
+    
+  
+ 
+  
+
+
+ 
+}
+
+.container-images{
+  width:200%;
+  height:100%;
+  display:flex;
+  animation: spin 100s linear infinite
+}
+
+.container-images img{
+  
+  width:50%;
+  height:100%;
+  
+  
+}
+
+@keyframes spin {
+  
+  100%{ transform:translate(-50%,0)}
+}
+
