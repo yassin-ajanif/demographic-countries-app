@@ -12,12 +12,13 @@ const CountryInfo = ({
   name, 
   capital,
   population,
-  phoneCode,
+  subRegion,
   languages,
   ImageImage,
   territories,
   currency,
-  areaSize,
+  flag
+ 
 
 }) => {
 
@@ -31,7 +32,7 @@ const CountryInfo = ({
 
     <div className="countryName-image">
     <h1>{name}</h1>
-      <img src={ImageImage} alt={`${name} Flag`} />
+      <img src={flag} alt={`${name} Flag`} />
       
     </div>
 
@@ -48,9 +49,9 @@ const CountryInfo = ({
         <p><strong>Population:</strong> {population}</p>
       </div>
       
-      <div className="phoneCode-image">
-        <img src={phoneCodeImg} alt={`${phoneCode} Image`} />
-        <p><strong>Phone Code:</strong> {phoneCode}</p>
+      <div className="subRegion-image">
+        <img src={phoneCodeImg} alt={`${subRegion} Image`} />
+        <p><strong>Phone Code:</strong> {subRegion}</p>
      </div>
 
      <div className="currency-image">
@@ -62,7 +63,7 @@ const CountryInfo = ({
 
         <img src={languagesImg} alt={`Languages Image`} />
         <strong>Languages:</strong> 
-        <p>{languages.join(', ')} </p>
+        <p>{languages}</p>
 
       </div>
 
@@ -70,7 +71,7 @@ const CountryInfo = ({
         <div className="territories">
         <strong>Territories:</strong>
 
-        <p> {territories.join(', ')}</p>      
+        <p> {"territories.join(', ')"}</p>      
 
         </div>
         <div className="map">map</div>
@@ -84,8 +85,8 @@ const CountryInfo = ({
 
     <div className="background">
     
-<div class="container">
-<div class="container-images">
+<div className="container">
+<div className="container-images">
  
 <img src="https://i0.wp.com/blog.education.nationalgeographic.org/wp-content/uploads/2013/02/nasa-lightsnight-world.jpg?resize=750%2C436&ssl=1" alt=""/>
 <img src="https://i0.wp.com/blog.education.nationalgeographic.org/wp-content/uploads/2013/02/nasa-lightsnight-world.jpg?resize=750%2C436&ssl=1" alt=""/>

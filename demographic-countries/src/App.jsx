@@ -1,307 +1,107 @@
-import { useState,useRef } from 'react'
+
+import React,{ useState,useEffect } from 'react'
 import './App.css'
 import CountryInfo from './countryInfo/CountryInfo'
-import search from './assets/search.png'
+import AppLandingPage from './LandingPage/AppLandingPage'
+import {BrowserRouter,Routes,Route, useNavigate} from 'react-router-dom'
 
 
 function App() {
 
+const [SortedCountriesByLetter,setSortedCountriesByLetter]=useState([])
 const [FiltredListOfCountries,setFiltredListOfCountries]=useState([])
-const [pickedCountry,setPickedCountry]=useState('')
+const [countryPickedInfo,setCountryPickedInfo]=useState(null)
+const navigate = useNavigate()
 
-console.log(pickedCountry)
+console.log(countryPickedInfo)
 
-  const infoCountry ={
 
-    name:'Morroco', 
-    code: '10',
-    capital:'Rabat',
-    population:'39milions',
-    phoneCode:'+212',
-    languages:['French','Arabic','Amazigh'],
-    flagImage:'Rabat',
-    territories:[
-    "Montserrat",
-    "Guernsey",
-    "Falkland Islands",
-    "Isle of Man",
-    "Heard Island and McDonald Islands",
-    "Bermuda",
-    "South Georgia and the South Sandwich Islands",
-    "Gibraltar",
-    "Anguilla",
-    "Saint Helena",
-    "Cayman Islands",
-    "Jersey",
-    "Turks and Caicos Islands",
-    "British Virgin Islands",
-    "Pitcairn Islands",
-    "British Indian Ocean Territory",
-    ],
-    currency:'MAD',
-    areaSize:'100km'
-  }
+function navigateTocountryInfoPage(){
 
-  const listCountries = [
-    "Andorra"
-    ,"United Arab Emirates"
-    ,"Afghanistan"
-    ,"Antigua and Barbuda"
-    ,"Anguilla"
-    ,"Albania"
-    ,"Armenia"
-    ,"Netherlands Antilles"
-    ,"Angola"
-    ,"Antarctica"
-    ,"Argentina"
-    ,"American Samoa"
-    ,"Austria"
-    ,"Australia"
-    ,"Aruba"
-    ,"Aland Islands"
-    ,"Azerbaijan"
-    ,"Bosnia and Herzegovina"
-    ,"Barbados"
-    ,"Bangladesh"
-    ,"Belgium"
-    ,"Burkina Faso"
-    ,"Bulgaria"
-    ,"Bahrain"
-    ,"Burundi"
-    ,"Benin"
-    ,"Saint Barthelemy"
-    ,"Bermuda"
-    ,"Brunei"
-    ,"Bolivia"
-    ,"Bonaire, Saint Eustatius and Saba "
-    ,"Brazil"
-    ,"Bahamas"
-    ,"Bhutan"
-    ,"Bouvet Island"
-    ,"Botswana"
-    ,"Belarus"
-    ,"Belize"
-    ,"Canada"
-    ,"Cocos Islands"
-    ,"Democratic Republic of the Congo"
-    ,"Central African Republic"
-    ,"Republic of the Congo"
-    ,"Switzerland"
-    ,"Ivory Coast"
-    ,"Cook Islands"
-    ,"Chile"
-    ,"Cameroon"
-    ,"China"
-    ,"Colombia"
-    ,"Costa Rica"
-    ,"Serbia and Montenegro"
-    ,"Cuba"
-    ,"Cape Verde"
-    ,"Curacao"
-    ,"Christmas Island"
-    ,"Cyprus"
-    ,"Czechia"
-    ,"Germany"
-    ,"Djibouti"
-    ,"Denmark"
-    ,"Dominica"
-    ,"Dominican Republic"
-    ,"Algeria"
-    ,"Ecuador"
-    ,"Estonia"
-    ,"Egypt"
-    ,"Western Sahara"
-    ,"Eritrea"
-    ,"Spain"
-    ,"Ethiopia"
-    ,"Finland"
-    ,"Fiji"
-    ,"Falkland Islands"
-    ,"Micronesia"
-    ,"Faroe Islands"
-    ,"France"
-    ,"Gabon"
-    ,"United Kingdom"
-    ,"Grenada"
-    ,"Georgia"
-    ,"French Guiana"
-    ,"Guernsey"
-    ,"Ghana"
-    ,"Gibraltar"
-    ,"Greenland"
-    ,"Gambia"
-    ,"Guinea"
-    ,"Guadeloupe"
-    ,"Equatorial Guinea"
-    ,"Greece"
-    ,"South Georgia and the South Sandwich Islands"
-    ,"Guatemala"
-    ,"Guam"
-    ,"Guinea-Bissau"
-    ,"Guyana"
-    ,"Hong Kong"
-    ,"Heard Island and McDonald Islands"
-    ,"Honduras"
-    ,"Croatia"
-    ,"Haiti"
-    ,"Hungary"
-    ,"Indonesia"
-    ,"Ireland"
-    ,"Israel"
-    ,"Isle of Man"
-    ,"India"
-    ,"British Indian Ocean Territory"
-    ,"Iraq"
-    ,"Iran"
-    ,"Iceland"
-    ,"Italy"
-    ,"Jersey"
-    ,"Jamaica"
-    ,"Jordan"
-    ,"Japan"
-    ,"Kenya"
-    ,"Kyrgyzstan"
-    ,"Cambodia"
-    ,"Kiribati"
-    ,"Comoros"
-    ,"Saint Kitts and Nevis"
-    ,"North Korea"
-    ,"South Korea"
-    ,"Kuwait"
-    ,"Cayman Islands"
-    ,"Kazakhstan"
-    ,"Laos"
-    ,"Lebanon"
-    ,"Saint Lucia"
-    ,"Liechtenstein"
-    ,"Sri Lanka"
-    ,"Liberia"
-    ,"Lesotho"
-    ,"Lithuania"
-    ,"Luxembourg"
-    ,"Latvia"
-    ,"Libya"
-    ,"Morocco"
-    ,"Monaco"
-    ,"Moldova"
-    ,"Montenegro"
-    ,"Saint Martin"
-    ,"Madagascar"
-    ,"Marshall Islands"
-    ,"Macedonia"
-    ,"Mali"
-    ,"Myanmar"
-    ,"Mongolia"
-    ,"Macao"
-    ,"Northern Mariana Islands"
-    ,"Martinique"
-    ,"Mauritania"
-    ,"Montserrat"
-    ,"Malta"
-    ,"Mauritius"
-    ,"Maldives"
-    ,"Malawi"
-    ,"Mexico"
-    ,"Malaysia"
-    ,"Mozambique"
-    ,"Namibia"
-    ,"New Caledonia"
-    ,"Niger"
-    ,"Norfolk Island"
-    ,"Nigeria"
-    ,"Nicaragua"
-    ,"Netherlands"
-    ,"Norway"
-    ,"Nepal"
-    ,"Nauru"
-    ,"Niue"
-    ,"New Zealand"
-    ,"Oman"
-    ,"Panama"
-    ,"Peru"
-    ,"French Polynesia"
-    ,"Papua New Guinea"
-    ,"Philippines"
-    ,"Pakistan"
-    ,"Poland"
-    ,"Saint Pierre and Miquelon"
-    ,"Pitcairn"
-    ,"Puerto Rico"
-    ,"Palestinian Territory"
-    ,"Portugal"
-    ,"Palau"
-    ,"Paraguay"
-    ,"Qatar"
-    ,"Reunion"
-    ,"Romania"
-    ,"Serbia"
-    ,"Russia"
-    ,"Rwanda"
-    ,"Saudi Arabia"
-    ,"Solomon Islands"
-    ,"Seychelles"
-    ,"Sudan"
-    ,"Sweden"
-    ,"Singapore"
-    ,"Saint Helena"
-    ,"Slovenia"
-    ,"Svalbard and Jan Mayen"
-    ,"Slovakia"
-    ,"Sierra Leone"
-    ,"San Marino"
-    ,"Senegal"
-    ,"Somalia"
-    ,"Suriname"
-    ,"South Sudan"
-    ,"Sao Tome and Principe"
-    ,"El Salvador"
-    ,"Sint Maarten"
-    ,"Syria"
-    ,"Swaziland"
-    ,"Turks and Caicos Islands"
-    ,"Chad"
-    ,"French Southern Territories"
-    ,"Togo"
-    ,"Thailand"
-    ,"Tajikistan"
-    ,"Tokelau"
-    ,"Timor Leste"
-    ,"Turkmenistan"
-    ,"Tunisia"
-    ,"Tonga"
-    ,"Turkey"
-    ,"Trinidad and Tobago"
-    ,"Tuvalu"
-    ,"Taiwan"
-    ,"Tanzania"
-    ,"Ukraine"
-    ,"Uganda"
-    ,"United States Minor Outlying Islands"
-    ,"United States"
-    ,"Uruguay"
-    ,"Uzbekistan"
-    ,"Vatican"
-    ,"Saint Vincent and the Grenadines"
-    ,"Venezuela"
-    ,"British Virgin Islands"
-    ,"U.S. Virgin Islands"
-    ,"Vietnam"
-    ,"Vanuatu"
-    ,"Wallis and Futuna"
-    ,"Samoa"
-    ,"Kosovo"
-    ,"Yemen"
-    ,"Mayotte"
-    ,"South Africa"
-    ,"Zambia"
-    ,"Zimbabwe"
-    ]
+  navigate('/countryInfo')
+}
 
+async function DataCountryFetch(pickedCountry){
+  
+ 
+  
+    const response =  await fetch(`https://restcountries.com/v3.1/name/${pickedCountry}`)
+    
+
+
+      const DataCountry = await response.json()
+      
+      // datacountry returns an array width a single element
+      const contentOfDataCountry = DataCountry[0]
+      
+      const countryName = contentOfDataCountry.name.common
+      const countryCapital = contentOfDataCountry.capital[0]
+      const countryPopulation = contentOfDataCountry.population
+      // we will access to contentOfDataCountry.currencies without using 
+      // it name of property becuase it is variable we're gong to use 
+      // Object.keys() built in function to return the values of the object without
+      // call it's property, we need the first value
+      const countryCurrency = Object.values(contentOfDataCountry.currencies)[0].name
+      const countryLanguages =  Object.values(contentOfDataCountry.languages).join(', ')
+      const flagImage = contentOfDataCountry.flags.png
+      const subRegion = contentOfDataCountry.subregion
+
+      console.log(countryLanguages)
+      
+      setCountryPickedInfo({
+          
+        name:countryName,
+        capital:countryCapital,
+        population:countryPopulation,
+        currency:countryCurrency,
+        languages:countryLanguages,
+        flag:flagImage,
+        subRegion:subRegion
+
+      })
+
+      
+       
+     }
+     
+async function getCountriesNamesList(){
+       
+      const fetchCountriesList = await fetch('https://restcountries.com/v3.1/all')
+      
+      const CountriesList = await fetchCountriesList.json()
+        
+      // put the countries in an array
+      const CountriesListArray = CountriesList.map(country => country.name.common)
+      
+      return CountriesListArray
+       
+     }
+     
+async function sortCountriesNamesListByLetter(){
+       
+       const countryNamesList = await getCountriesNamesList()
+       let SortingCountriesByLetter = []
+       // transform alphabet string to an array
+       const alphabet = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");  
+       
+       for(let index=0; index<alphabet.length; index++) {
+         
+         const filteredCountryByLetter = 
+         countryNamesList.filter(country => country[0]===alphabet[index])
+         // we push 26 times each letter at once
+         SortingCountriesByLetter.push(...filteredCountryByLetter)
+         
+       }
+       
+       setSortedCountriesByLetter(SortingCountriesByLetter)
+       
+     }
+     
 
 function checkCountries(event){
  
   const nameOfCountryTyped = event.target.value
-  const filtredCountries = listCountries.filter( country => country.includes(nameOfCountryTyped))
+  const filtredCountries = SortedCountriesByLetter.filter( country => country.includes(nameOfCountryTyped))
   setFiltredListOfCountries(prevList => filtredCountries)
   return filtredCountries
   
@@ -310,14 +110,17 @@ function checkCountries(event){
 
 function pickThisCountry(countryPicked){
 
-   setPickedCountry(countryPicked)
+   DataCountryFetch(countryPicked)
 }
 
 function displayFiltredCountries(){
 
   return FiltredListOfCountries.map
-  (country => <div className='country' 
-  onClick={()=>pickThisCountry(country)}>{country}</div>)
+  ((country,index) => <div className='country' key={index}
+  onClick={()=>{pickThisCountry(country);
+    navigateTocountryInfoPage()
+    }}>{country}</div>)
+
 }
 
 function removeSuggestedCountriesList(){
@@ -327,46 +130,39 @@ function removeSuggestedCountriesList(){
 }
 
 
+useEffect(()=>{
+
+  sortCountriesNamesListByLetter()
+
+},[])
+
+const AppLandingPageProps ={
+
+  removeSuggestedCountriesList:removeSuggestedCountriesList,
+  checkCountries:checkCountries,
+  displayFiltredCountries:displayFiltredCountries,
+  
+}
 
 
   return (
+  
    
-   <div className="app" onClick={removeSuggestedCountriesList}>
 
-     {/*<CountryInfo {...infoCountry}/>*/}
+  <Routes>
 
-  <div className="countryInfo-landingPage">
+    <Route index element={<AppLandingPage {...AppLandingPageProps}/>} />
+    <Route path='/countryInfo' 
+     element={<CountryInfo {...countryPickedInfo} />} />
 
-     <h1>The Country Info Generator</h1>
-     <h2>Get The Information About Your Intrested Country</h2>
+  </Routes>
 
-    <div className="search-container">
-     
-     <input type="text" className="search-input" 
-     placeholder="Search..." 
-     onChange={()=>checkCountries(event)}
-     />
-     <img className="search-icon" 
-     src={search}
-     />
+ 
 
-<div className="searchResults">
-    
-    <div className="searchResultsTopLine"></div>
-    {
-    displayFiltredCountries()
-    } 
-
-       </div>
-    </div>
-
-    
-
-   </div>
-
-  </div>
+   
 
   )
+   
 
 }
 
