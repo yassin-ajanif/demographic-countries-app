@@ -3,7 +3,9 @@ import React,{ useState,useEffect } from 'react'
 import './App.css'
 import CountryInfo from './countryInfo/CountryInfo'
 import AppLandingPage from './LandingPage/AppLandingPage'
+import ErrorPage from './ErrorPage/ErrorPage'
 import {BrowserRouter,Routes,Route, useNavigate} from 'react-router-dom'
+import MapComponent from './MapComponent/MapComponent'
 
 
 function App() {
@@ -11,25 +13,33 @@ function App() {
 const [SortedCountriesByLetter,setSortedCountriesByLetter]=useState([])
 const [FiltredListOfCountries,setFiltredListOfCountries]=useState([])
 const [countryPickedInfo,setCountryPickedInfo]=useState(null)
+const [countryPickedCordinates,setCountryPickedCordinates]=useState(null)
+const [ErrorMessage,setErrorMessage]=useState(null)
 const navigate = useNavigate()
 
-console.log(countryPickedInfo)
-
+console.log(ErrorMessage)
 
 function navigateTocountryInfoPage(){
 
   navigate('/countryInfo')
 }
 
+function navigateToErrorPage(){
+
+  navigate('/pagenotfound')
+}
+
 async function DataCountryFetch(pickedCountry){
   
- 
-  
-    const response =  await fetch(`https://restcountries.com/v3.1/name/${pickedCountry}`)
+  let response
+
+  try {
+
+      response =  await fetch(`https://restcountries.com/v3.1/name/${pickedCountry}`)
     
-
-
       const DataCountry = await response.json()
+
+      if(!response.ok) throw new Error ('something went wrong with a server')
       
       // datacountry returns an array width a single element
       const contentOfDataCountry = DataCountry[0]
@@ -59,10 +69,23 @@ async function DataCountryFetch(pickedCountry){
         subRegion:subRegion
 
       })
+    }
 
+     catch(error){ 
+
+      if(!response.ok){
+
+        setErrorMessage(error.message)
+        navigateToErrorPage()
+      }
+      else{
+        //console.log('the infos of this country are not available')}
+        setErrorMessage('the infos of this country are not available')
+        navigateToErrorPage()
+    }
       
        
-     }
+     }}
      
 async function getCountriesNamesList(){
        
@@ -110,7 +133,7 @@ function checkCountries(event){
 
 function pickThisCountry(countryPicked){
 
-   DataCountryFetch(countryPicked)
+    DataCountryFetch(countryPicked)
 }
 
 function displayFiltredCountries(){
@@ -144,24 +167,24 @@ const AppLandingPageProps ={
   
 }
 
-
   return (
-  
-   
-
+     
   <Routes>
 
     <Route index element={<AppLandingPage {...AppLandingPageProps}/>} />
+
     <Route path='/countryInfo' 
      element={<CountryInfo {...countryPickedInfo} />} />
+    
+    <Route path='/pagenotfound' 
+    element={<ErrorPage ErrorMessage={ErrorMessage}/>} />
 
   </Routes>
 
- 
-
-   
 
   )
+
+
    
 
 }

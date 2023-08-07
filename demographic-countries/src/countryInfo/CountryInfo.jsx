@@ -5,7 +5,7 @@ import populationImg from './countryInfo-assets/people.png'
 import phoneCodeImg from './countryInfo-assets/telephone.png'
 import languagesImg from './countryInfo-assets/translate.png'
 import currencyImg from './countryInfo-assets/currency.png'
-
+import MapComponent from '../MapComponent/MapComponent';
 
 const CountryInfo = ({ 
 
@@ -68,13 +68,11 @@ const CountryInfo = ({
       </div>
 
       <div className="territories-image">
-        <div className="territories">
-        <strong>Territories:</strong>
-
-        <p> {"territories.join(', ')"}</p>      
-
+        
+        <div className="map">
+          <MapComponent/>
         </div>
-        <div className="map">map</div>
+
       </div>
 
       </div>
