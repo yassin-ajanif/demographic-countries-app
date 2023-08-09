@@ -13,16 +13,19 @@ function App() {
 const [SortedCountriesByLetter,setSortedCountriesByLetter]=useState([])
 const [FiltredListOfCountries,setFiltredListOfCountries]=useState([])
 const [countryPickedInfo,setCountryPickedInfo]=useState(null)
-const [countryPickedCordinates,setCountryPickedCordinates]=useState(null)
+const [pickedCountryName,setPickedCountryName]=useState('home')
 const [ErrorMessage,setErrorMessage]=useState(null)
 const navigate = useNavigate()
 
-console.log(ErrorMessage)
 
-function navigateTocountryInfoPage(){
 
-  navigate('/countryInfo')
+function navigateTocountryInfoPage(CountryNameLink){
+
+  navigate(`/${CountryNameLink}`);
 }
+
+
+
 
 function navigateToErrorPage(){
 
@@ -32,6 +35,7 @@ function navigateToErrorPage(){
 async function DataCountryFetch(pickedCountry){
   
   let response
+ 
 
   try {
 
@@ -55,8 +59,11 @@ async function DataCountryFetch(pickedCountry){
       const countryLanguages =  Object.values(contentOfDataCountry.languages).join(', ')
       const flagImage = contentOfDataCountry.flags.png
       const subRegion = contentOfDataCountry.subregion
-
-      console.log(countryLanguages)
+      /* the array that contains cordinates must be reversed before send it a mapBox api becuase
+the first "restcountries api" return an array in the form of [latitude,longitude] but
+ the mapbox api require to be [longitude,latitude] */
+      const countryCoordinates = contentOfDataCountry.latlng.reverse()
+      
       
       setCountryPickedInfo({
           
@@ -66,9 +73,14 @@ async function DataCountryFetch(pickedCountry){
         currency:countryCurrency,
         languages:countryLanguages,
         flag:flagImage,
-        subRegion:subRegion
+        subRegion:subRegion,
+        countryCoordinates:countryCoordinates
 
       })
+      
+      setPickedCountryName(pickedCountry)
+       console.log('fetching finished')
+       return pickedCountry
     }
 
      catch(error){ 
@@ -79,14 +91,17 @@ async function DataCountryFetch(pickedCountry){
         navigateToErrorPage()
       }
       else{
-        //console.log('the infos of this country are not available')}
+        
         setErrorMessage('the infos of this country are not available')
         navigateToErrorPage()
     }
       
        
-     }}
+     }
+
+    }
      
+    
 async function getCountriesNamesList(){
        
       const fetchCountriesList = await fetch('https://restcountries.com/v3.1/all')
@@ -131,27 +146,31 @@ function checkCountries(event){
 
 }
 
-function pickThisCountry(countryPicked){
 
-    DataCountryFetch(countryPicked)
+
+async function showInfoOfTheCountry (country) {
+
+  // waiting the api finishing and returning the nameofCountry 
+  const CountryNameLink =await DataCountryFetch(country)
+  // when CountryNameLink is undefined it mean that Api didn't found any info. so we won't do anything
+  CountryNameLink===undefined ? '' : navigateTocountryInfoPage(CountryNameLink)
+
 }
 
 function displayFiltredCountries(){
 
   return FiltredListOfCountries.map
   ((country,index) => <div className='country' key={index}
-  onClick={()=>{pickThisCountry(country);
-    navigateTocountryInfoPage()
-    }}>{country}</div>)
+  onClick={()=>showInfoOfTheCountry(country)}>{country}</div>)
 
 }
+
 
 function removeSuggestedCountriesList(){
 
  setFiltredListOfCountries([])
 
 }
-
 
 useEffect(()=>{
 
@@ -171,11 +190,12 @@ const AppLandingPageProps ={
      
   <Routes>
 
+
     <Route index element={<AppLandingPage {...AppLandingPageProps}/>} />
 
-    <Route path='/countryInfo' 
+     <Route path="/:CountryName"
      element={<CountryInfo {...countryPickedInfo} />} />
-    
+
     <Route path='/pagenotfound' 
     element={<ErrorPage ErrorMessage={ErrorMessage}/>} />
 
@@ -185,7 +205,7 @@ const AppLandingPageProps ={
   )
 
 
-   
+ 
 
 }
 

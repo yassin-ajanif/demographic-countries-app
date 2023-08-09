@@ -137,7 +137,9 @@
 
 .container-page img{
 
-    width:100px
+    width:100px;
+    /*height: 100px;*/
+   
 }
 
 .languages-images,.territories-image{

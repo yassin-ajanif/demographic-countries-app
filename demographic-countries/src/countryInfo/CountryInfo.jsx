@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect,useState,useRef } from 'react';
 import './CountryInfo.css'; // Import your custom CSS file for styling
 import capitalImg from './countryInfo-assets/governmental.png'
 import populationImg from './countryInfo-assets/people.png'
@@ -6,6 +6,7 @@ import phoneCodeImg from './countryInfo-assets/telephone.png'
 import languagesImg from './countryInfo-assets/translate.png'
 import currencyImg from './countryInfo-assets/currency.png'
 import MapComponent from '../MapComponent/MapComponent';
+import { useLocation } from 'react-router-dom';
 
 const CountryInfo = ({ 
 
@@ -17,18 +18,25 @@ const CountryInfo = ({
   ImageImage,
   territories,
   currency,
-  flag
+  flag,
+  countryCoordinates
  
 
 }) => {
 
+  const [loadingMap,setLoadingMap] = useState(false)
+  const Page = useRef(null)
+
+
+  
+
   return (
 
-<div className='container-component'>
+<div className='container-component' >
 
     <div className='container-page'>
    
-   <div className="container-info">
+   <div className="container-info" >
 
     <div className="countryName-image">
     <h1>{name}</h1>
@@ -36,7 +44,7 @@ const CountryInfo = ({
       
     </div>
 
-    <div className="country-info">
+    <div className="country-info" ref={Page}>
       
    
       <div className="capital-image">
@@ -70,7 +78,7 @@ const CountryInfo = ({
       <div className="territories-image">
         
         <div className="map">
-          <MapComponent/>
+        <MapComponent countryCoordinates={countryCoordinates}/>
         </div>
 
       </div>
