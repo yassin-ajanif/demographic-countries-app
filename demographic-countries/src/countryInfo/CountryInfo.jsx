@@ -2,33 +2,52 @@ import React, { useEffect,useState,useRef } from 'react';
 import './CountryInfo.css'; // Import your custom CSS file for styling
 import capitalImg from './countryInfo-assets/governmental.png'
 import populationImg from './countryInfo-assets/people.png'
-import phoneCodeImg from './countryInfo-assets/telephone.png'
+import phoneCodeImg from './countryInfo-assets/Subregion.png'
 import languagesImg from './countryInfo-assets/translate.png'
 import currencyImg from './countryInfo-assets/currency.png'
 import MapComponent from '../MapComponent/MapComponent';
 import { useLocation } from 'react-router-dom';
 
-const CountryInfo = ({ 
+const CountryInfo = ({ CountryInfo }) => {
+    
+  //localStorage.clear()
 
-  name, 
-  capital,
-  population,
-  subRegion,
-  languages,
-  ImageImage,
-  territories,
-  currency,
-  flag,
-  countryCoordinates
- 
+    
+    const { name, capital, population, subRegion,
+      languages,ImageImage,territories,currency,flag,
+      countryCoordinates }= storedCountryInfoIntoLocalStorage()
 
-}) => {
+      
 
   const [loadingMap,setLoadingMap] = useState(false)
   const Page = useRef(null)
 
-
+  // we you reload a page a state get initiated so all props get gone for this reason whe have to prevent page from reloading
+  // if the user reloaded the page the countryInfo pros will be gone so we have to store them in localStorage
   
+  function storedCountryInfoIntoLocalStorage(){
+
+   // when user reload page countryInfo props get erased returning null
+    const whenUserReloadPage = CountryInfo===null
+    let CountryInfoReloadedIntoLocalStorage =JSON.parse(localStorage.getItem('CountryProps'))
+
+    if(whenUserReloadPage){  }
+   
+    // when the props are existing, this is happen when we load the page by clicking our targeted counrty in landing page
+    else{
+
+      localStorage.setItem('CountryProps',JSON.stringify(CountryInfo))
+
+     CountryInfoReloadedIntoLocalStorage = JSON.parse(localStorage.getItem('CountryProps'))
+
+    }
+
+    
+    return CountryInfoReloadedIntoLocalStorage
+    
+
+
+  }
 
   return (
 
@@ -59,7 +78,7 @@ const CountryInfo = ({
       
       <div className="subRegion-image">
         <img src={phoneCodeImg} alt={`${subRegion} Image`} />
-        <p><strong>Phone Code:</strong> {subRegion}</p>
+        <p><strong>SubRegion:</strong> {subRegion}</p>
      </div>
 
      <div className="currency-image">

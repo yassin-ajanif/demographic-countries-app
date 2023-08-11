@@ -194,7 +194,7 @@ const AppLandingPageProps ={
     <Route index element={<AppLandingPage {...AppLandingPageProps}/>} />
 
      <Route path="/:CountryName"
-     element={<CountryInfo {...countryPickedInfo} />} />
+     element={<CountryInfo CountryInfo ={countryPickedInfo} />} />
 
     <Route path='/pagenotfound' 
     element={<ErrorPage ErrorMessage={ErrorMessage}/>} />
